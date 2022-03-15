@@ -15,7 +15,7 @@ const pool = new Pool({
 module.exports.getCursos = async () => {
     const client = await pool.connect();
     const query = {
-        text: "SELECT * FROM cursos *",
+        text: "SELECT * FROM cursos",
     };
 
     try{
@@ -36,7 +36,7 @@ module.exports.getCursos = async () => {
     }
 };
 
-module.exports.postCurso = async () => {
+module.exports.postCurso = async (nombre, nivel, fecha, duracion) => {
     const client = await pool.connect();
     const query = {
         text: "INSERT INTO cursos (nombre, nivel, fecha, duracion) VALUES ($1, $2, $3, $4) RETURNING *",
@@ -58,7 +58,7 @@ module.exports.postCurso = async () => {
     }
 };
 
-module.exports.editCurso = async (id) => {
+module.exports.editCurso = async (nombre, nivel, fecha, duracion, id) => {
     const client = await pool.connect();
     const query = {
         text: "UPDATE cursos SET nombre = $1 , nivel = $2, fecha = $3, duracion = $4 Where id = $5 RETURNING *",
@@ -95,7 +95,7 @@ module.exports.deleteCurso = async (id) => {
         console.log(error);
         return{
             ok: false,
-            data: 'Error al eliminar.'
+            data: 'Error al eliminar'
         }
     } finally {
         client.release();

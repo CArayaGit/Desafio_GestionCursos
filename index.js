@@ -12,7 +12,7 @@ app.get("/", (req,res) => {
 });
 */
 
-app.get("/", async (req, res) => {
+app.get("/cursos", async (req, res) => {
     const respuesta = await getCursos();
     return res.json(respuesta);
 });
